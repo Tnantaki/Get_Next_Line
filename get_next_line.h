@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:52:49 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/20 17:11:43 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/21 00:12:58 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@
 #endif
 
 char	*get_next_line(int fd);
-size_t	ft_strlen(const char *str);
-void	*ft_calloc(size_t count, size_t size);
+int		ft_strlen(const char *str);
+void	ft_strcpy(char *dst, char *src);
 char	*ft_strdup(char *s1);
-char	*ft_strjoin_n(char *s1, char *s2, size_t lens2);
+char	*ft_strjoin_n(char *s1, char *s2, int lens2);
 
 #endif

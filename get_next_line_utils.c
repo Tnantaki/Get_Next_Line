@@ -6,15 +6,15 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:33:29 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/20 17:12:00 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/21 00:12:53 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_strlen(const char *str)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -24,14 +24,26 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strjoin_n(char *s1, char *s2, size_t lens2)
+void	ft_strcpy(char *dst, char *src)
+{
+	int	i;
+
+	i = 0;
+	while (src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+}
+
+char	*ft_strjoin_n(char *s1, char *s2, int lens2)
 {
 	char	*dst;
-	size_t	lens1;
-	size_t	i;
-	size_t	j;
+	int		lens1;
+	int		i;
+	int		j;
 
-	// printf("tmp a: %s\n", s2);
 	if (!s2)
 		return (NULL);
 	lens1 = ft_strlen(s1);
@@ -46,25 +58,10 @@ char	*ft_strjoin_n(char *s1, char *s2, size_t lens2)
 	while (lens2--)
 		dst[i++] = s2[j++];
 	dst[i] = '\0';
-	//free(s2);
+	free(s1);
 	return (dst);
 }
 
-void	*ft_calloc(size_t count, size_t size)
-{
-	char	*str;
-	size_t	i;
-	size_t	len;
-
-	len = count * size;
-	str = malloc(len);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-		str[i++] = 0;
-	return (str);
-}
 char	*ft_strdup(char *s1)
 {
 	char	*dst;

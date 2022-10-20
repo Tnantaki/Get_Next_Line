@@ -6,17 +6,18 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:55:17 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/20 17:10:35 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/21 00:12:27 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-int	ft_check_newline(char *str)
+
+int	ft_check_newline(char *str, int count_read)
 {
 	int	i;
 
 	i = 0;
-	while (str[i])
+	while (i < count_read)
 	{
 		if (str[i] == '\n')
 			return (i + 1);
@@ -27,49 +28,32 @@ int	ft_check_newline(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*nl = NULL;
+	static char	nl[BUFFER_SIZE];
 	char	*ptr;
 	char	*tmp;
-	int		nb;
-	int		len_nl;
+	int		count_read;
 
-	if (fd < 3)
-		return (NULL);
-	nb = BUFFER_SIZE;
-	if (nl)
+	count_read = 1;
+	ptr = (char *)malloc(sizeof(char));
+	*ptr = 0;
+	tmp = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (*nl)
+		ptr = ft_strjoin_n(ptr, nl, ft_strlen(nl));
+	while (count_read)
 	{
-		ptr = ft_strdup(nl);
-		//free(nl);
-	}
-	else
-		ptr = calloc(1, sizeof(char));
-	// ptr = NULL;
-	tmp = (char *)calloc(BUFFER_SIZE + 1, sizeof(char));
-	while (nb)
-	{
-		nb = read(fd, tmp, BUFFER_SIZE);
-		len_nl = ft_check_newline(tmp);
-		// printf("tmp : %s|\n", tmp);
-		if (len_nl < nb)
+		count_read = read(fd, tmp, BUFFER_SIZE);
+		count_read = ft_check_newline(tmp, count_read);
+		ptr = ft_strjoin_n(ptr, tmp, count_read);
+		if (count_read < BUFFER_SIZE)
 		{
-			// tmp = (char *)calloc(BUFFER_SIZE + 1, sizeof(char));
-			ptr = ft_strjoin_n(ptr, tmp, len_nl);
-			// printf("len : %d\n", len_nl);
-			// printf("len buf : %d\n", BUFFER_SIZE - len_nl);
-			nl = ft_strjoin_n(nl, tmp + len_nl, BUFFER_SIZE - len_nl);
-			// printf("Hello\n");
-			// printf("nl :%s\n",nl);
+			ft_strcpy(nl, tmp + count_read);
 			break ;
 		}
-		else
-			ptr = ft_strjoin_n(ptr, tmp, len_nl);
 	}
-	// if (!nb)
-	// {}
 	free(tmp);
 	return (ptr);
 }
-
+/*
 int	main(void)
 {
 	char *str;
@@ -78,6 +62,7 @@ int	main(void)
 	fd = open ("text.txt", O_RDONLY);
 	str = get_next_line(fd);
 	printf("%s", str);
+	free (str);
 	str = get_next_line(fd);
 	printf("%s", str);
 	// str = get_next_line(fd);
@@ -85,4 +70,4 @@ int	main(void)
 	free (str);
 	fd = close (fd);
 }
-
+*/
