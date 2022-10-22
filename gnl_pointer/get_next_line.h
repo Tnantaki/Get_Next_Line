@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:52:49 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/21 00:12:58 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/22 19:24:49 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@
 #include <stdio.h>
 
 #ifndef BUFFER_SIZE
-# define BUFFER_SIZE 3
+# define BUFFER_SIZE 50
 #endif
 
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);
-void	ft_strcpy(char *dst, char *src);
+int		ft_newline_len(char *str, int len);
+char	*ft_strjoin(char *s1, char *s2, int lens2);
 char	*ft_strdup(char *s1);
-char	*ft_strjoin_n(char *s1, char *s2, int lens2);
 
 #endif
