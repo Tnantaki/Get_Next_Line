@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnantaki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 21:52:49 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/22 19:24:49 by tnantaki         ###   ########.fr       */
+/*   Created: 2022/10/23 14:00:27 by tnantaki          #+#    #+#             */
+/*   Updated: 2022/10/23 14:00:31 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 42
+# endif
 
 # include <unistd.h>
 # include <stdlib.h>
 
-#include <fcntl.h>
-#include <stdio.h>
-
-#ifndef BUFFER_SIZE
-# define BUFFER_SIZE 50
-#endif
+# include <fcntl.h>
+# include <stdio.h>
 
 char	*get_next_line(int fd);
 int		ft_strlen(const char *str);

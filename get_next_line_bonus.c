@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 21:55:17 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/23 00:41:17 by tnantaki         ###   ########.fr       */
+/*   Created: 2022/10/23 14:00:52 by tnantaki          #+#    #+#             */
+/*   Updated: 2022/10/23 14:42:15 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read_line(int fd, char *str)
 {
@@ -19,31 +19,29 @@ char	*ft_read_line(int fd, char *str)
 	char	*tmp;
 
 	readable = 1;
-	tmp = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	tmp = malloc(sizeof(char) * BUFFER_SIZE);
 	while (readable)
 	{
 		readable = read(fd, tmp, BUFFER_SIZE);
 		if (readable <= 0)
 			break ;
-		tmp[readable] = '\0';
-		// printf("readable :%d\n", readable);
-		str = ft_strjoin(str, tmp, ft_strlen(tmp));
+		str = ft_strjoin(str, tmp, readable);
 		read_nl = ft_newline_len(tmp, readable);
 		if (read_nl < readable)
 			break ;
 	}
-	free (tmp);
+	free(tmp);
 	return (str);
 }
 
 char	*ft_cut_line(char *str)
 {
-	char *tmp;
-	int	len;
-	int	read_nl;
+	char	*tmp;
+	int		len;
+	int		read_nl;
 
 	len = ft_strlen(str);
-	read_nl = ft_newline_len(str, len);
+	read_nl = ft_newline_len(str, len) + 1;
 	if (read_nl < len)
 	{
 		tmp = str;
@@ -52,7 +50,7 @@ char	*ft_cut_line(char *str)
 	}
 	else
 	{
-		free (str);
+		free(str);
 		return (NULL);
 	}
 	return (str);
@@ -60,35 +58,39 @@ char	*ft_cut_line(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str;
+	static char	*str[500];
 	char		*line;
 	int			len;
 	int			read_nl;
 
 	line = NULL;
-	if (fd < 3 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	len = ft_strlen(str);
-	read_nl = ft_newline_len(str, len);
+	len = ft_strlen(str[fd]);
+	read_nl = ft_newline_len(str[fd], len);
 	if (read_nl == len)
-		str = ft_read_line(fd, str);
-	if (str)
+		str[fd] = ft_read_line(fd, str[fd]);
+	if (str[fd])
 	{
-		line = ft_strdup(str);
-		str = ft_cut_line(str);
+		line = ft_strdup(str[fd]);
+		str[fd] = ft_cut_line(str[fd]);
 	}
 	return (line);
 }
-
+/*
 int	main(void)
 {
 	char *str;
 	int	fd;
-	fd = open ("gnlTester/files/41_with_nl", O_RDONLY);
+	fd = open("gnlTester/files/42_with_nl", O_RDONLY);
 	printf("fd :%d\n", fd);
 	str = get_next_line(fd);
+	printf("len :%d\n", ft_strlen(str));
 	printf("first :%s\n", str);
 	free (str);
+	// char c = 0;
+	// read(fd, &c, 1);
+	// printf ("printf :%c\n", c);
 	str = get_next_line(fd);
 	printf("second:%s\n", str);
 	free (str);
@@ -97,4 +99,4 @@ int	main(void)
 	free (str);
 	fd = close (fd);
 }
-
+*/

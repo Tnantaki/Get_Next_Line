@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 08:33:29 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/22 23:56:46 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/23 10:16:03 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_newline_len(char *str, int len)
 	while (i < len)
 	{
 		if (str[i] == '\n')
-			return (i + 1);
+			return (i);
 		i++;
 	}
 	return (i);
@@ -76,9 +76,7 @@ char	*ft_strdup(char *s1)
 	if (!s1)
 		return (NULL);
 	len = ft_strlen(s1);
-	len_nl = ft_newline_len(s1, len);
-	// printf("len :%zu\n", len);
-	// printf("len_nl :%zu\n", len_nl);
+	len_nl = ft_newline_len(s1, len) + 1;
 	dst = malloc((sizeof(char)) * (len_nl + 1));
 	if (!dst)
 		return (NULL);
