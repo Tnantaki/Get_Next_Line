@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:00:52 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/23 14:42:15 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:13:11 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,21 @@
 char	*ft_read_line(int fd, char *str)
 {
 	int		readable;
-	int		read_nl;
+	int		read_exnl;
 	char	*tmp;
 
 	readable = 1;
 	tmp = malloc(sizeof(char) * BUFFER_SIZE);
+	if (!tmp)
+		return (NULL);
 	while (readable)
 	{
 		readable = read(fd, tmp, BUFFER_SIZE);
 		if (readable <= 0)
 			break ;
 		str = ft_strjoin(str, tmp, readable);
-		read_nl = ft_newline_len(tmp, readable);
-		if (read_nl < readable)
+		read_exnl = ft_newline_len(tmp, readable);
+		if (read_exnl < readable)
 			break ;
 	}
 	free(tmp);
@@ -38,14 +40,14 @@ char	*ft_cut_line(char *str)
 {
 	char	*tmp;
 	int		len;
-	int		read_nl;
+	int		read_innl;
 
 	len = ft_strlen(str);
-	read_nl = ft_newline_len(str, len) + 1;
-	if (read_nl < len)
+	read_innl = ft_newline_len(str, len) + 1;
+	if (read_innl < len)
 	{
 		tmp = str;
-		str = ft_strjoin(NULL, str + read_nl, len - read_nl);
+		str = ft_strjoin(NULL, str + read_innl, len - read_innl);
 		free (tmp);
 	}
 	else
@@ -58,17 +60,17 @@ char	*ft_cut_line(char *str)
 
 char	*get_next_line(int fd)
 {
-	static char	*str[500];
+	static char	*str[OPEN_MAX];
 	char		*line;
 	int			len;
-	int			read_nl;
+	int			read_exnl;
 
 	line = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	len = ft_strlen(str[fd]);
-	read_nl = ft_newline_len(str[fd], len);
-	if (read_nl == len)
+	read_exnl = ft_newline_len(str[fd], len);
+	if (read_exnl == len)
 		str[fd] = ft_read_line(fd, str[fd]);
 	if (str[fd])
 	{

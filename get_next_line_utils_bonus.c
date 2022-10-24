@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:01:24 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/23 14:01:46 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:13:41 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ char	*ft_strjoin(char *s1, char *s2, int lens2)
 	while (lens2--)
 		dst[i++] = s2[j++];
 	dst[i] = '\0';
-	free(s1);
+	if (s1)
+		free(s1);
 	return (dst);
 }
 
@@ -70,17 +71,17 @@ char	*ft_strdup(char *s1)
 	char	*dst;
 	size_t	i;
 	size_t	len;
-	size_t	len_nl;
+	size_t	len_innl;
 
 	i = 0;
 	if (!s1)
 		return (NULL);
 	len = ft_strlen(s1);
-	len_nl = ft_newline_len(s1, len) + 1;
-	dst = malloc((sizeof(char)) * (len_nl + 1));
+	len_innl = ft_newline_len(s1, len) + 1;
+	dst = malloc((sizeof(char)) * (len_innl + 1));
 	if (!dst)
 		return (NULL);
-	while (len_nl--)
+	while (len_innl--)
 	{
 		dst[i] = s1[i];
 		i++;
