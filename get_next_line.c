@@ -6,7 +6,7 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:55:17 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/24 16:06:22 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/24 16:39:10 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(void)
 {
 	char *str;
 	int	fd = 0;
-	fd = open("gnlTester/files/big_line_with_nl", O_RDONLY);
+	fd = open("../collect/text.txt", O_RDONLY);
 	printf("fd :%d\n", fd);
 	str = get_next_line(fd);
 	printf("len :%d\n", ft_strlen(str));
@@ -96,9 +96,15 @@ int	main(void)
 	str = get_next_line(fd);
 	printf("second:%s\n", str);
 	free (str);
-	// str = get_next_line(fd);
-	// printf("third :%s\n", str);
-	// free (str);
+	str = get_next_line(fd);
+	printf("third :%s\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("fourth :%s\n", str);
+	free (str);
+	str = get_next_line(fd);
+	printf("fifth :%s\n", str);
+	free (str);
 	fd = close (fd);
 }
 */
