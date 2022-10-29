@@ -6,13 +6,13 @@
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 21:55:17 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/10/28 20:17:06 by tnantaki         ###   ########.fr       */
+/*   Updated: 2022/10/29 12:30:06 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read_line(int fd, char *str)
+static char	*ft_read_line(int fd, char *str)
 {
 	int		readable;
 	int		read_exnl;
@@ -36,7 +36,7 @@ char	*ft_read_line(int fd, char *str)
 	return (str);
 }
 
-char	*ft_cut_line(char *str)
+static char	*ft_cut_line(char *str)
 {
 	char	*tmp;
 	int		len;
@@ -79,7 +79,7 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-/*
+
 int	main(void)
 {
 	char *str;
@@ -107,4 +107,4 @@ int	main(void)
 	free (str);
 	fd = close (fd);
 }
-*/
+
