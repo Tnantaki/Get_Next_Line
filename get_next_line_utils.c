@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-int	ft_strlen(const char *str)
+int	ft_get_strlen(const char *str)
 {
 	int	i;
 
@@ -24,7 +24,23 @@ int	ft_strlen(const char *str)
 	return (i);
 }
 
-int	ft_newline_len(char *str, int len)
+int	ft_get_strnl(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (!str)
+		return (0);
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (i);
+}
+
+int	ft_get_check_nl(char *str, int len)
 {
 	int	i;
 
@@ -34,13 +50,13 @@ int	ft_newline_len(char *str, int len)
 	while (i < len)
 	{
 		if (str[i] == '\n')
-			return (i);
+			return (1);
 		i++;
 	}
-	return (i);
+	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2, int lens2)
+char	*ft_get_strjoin(char *s1, char *s2, int lens2)
 {
 	char	*dst;
 	int		lens1;
@@ -49,7 +65,7 @@ char	*ft_strjoin(char *s1, char *s2, int lens2)
 
 	if (!s2)
 		return (NULL);
-	lens1 = ft_strlen(s1);
+	lens1 = ft_get_strlen(s1);
 	dst = malloc(sizeof(char) * (lens1 + lens2 + 1));
 	if (!dst)
 		return (NULL);
@@ -66,26 +82,21 @@ char	*ft_strjoin(char *s1, char *s2, int lens2)
 	return (dst);
 }
 
-char	*ft_strdup(char *s1)
+char	*ft_get_strdup(char *str, char *line, size_t len_str, size_t len_nl)
 {
-	char	*dst;
+	size_t	len_line;
 	size_t	i;
-	size_t	len;
-	size_t	len_innl;
 
+	if (len_nl <= len_str)
+		len_line = len_nl;
+	else
+		len_line = len_str;
+	line = malloc((sizeof(char)) * (len_line + 1));
+	if (!line)
+		return (NULL);
 	i = 0;
-	if (!s1)
-		return (NULL);
-	len = ft_strlen(s1);
-	len_innl = ft_newline_len(s1, len) + 1;
-	dst = malloc((sizeof(char)) * (len_innl + 1));
-	if (!dst)
-		return (NULL);
-	while (len_innl--)
-	{
-		dst[i] = s1[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
+	while (len_line--)
+		line[i++] = *str++;
+	line[i] = '\0';
+	return (line);
 }

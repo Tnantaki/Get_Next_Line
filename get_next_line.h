@@ -24,9 +24,10 @@
 # include <stdio.h>
 
 char	*get_next_line(int fd);
-int		ft_strlen(const char *str);
-int		ft_newline_len(char *str, int len);
-char	*ft_strjoin(char *s1, char *s2, int lens2);
-char	*ft_strdup(char *s1);
+int		ft_get_strlen(const char *str);
+int		ft_get_strnl(char *str);
+int		ft_get_check_nl(char *str, int len);
+char	*ft_get_strjoin(char *s1, char *s2, int lens2);
+char	*ft_get_strdup(char *str, char *line, size_t len_str, size_t len_nl);
 
 #endif
